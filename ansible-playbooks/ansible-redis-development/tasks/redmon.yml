@@ -2,7 +2,7 @@
 # Install Redmon dependencies
 - name: "Install Redmon dependencies"
   sudo: yes
-  action: ${ansible_pkg_mgr} pkg={{ item }} state=installed update-cache=yes
+  action: "{{ ansible_pkg_mgr }} pkg={{ item }} state=installed update-cache=yes"
   with_items: redmon.deb.dependencies
   when: ansible_distribution in [ 'Debian', 'Ubuntu' ]
   #when_boolean: ${with_redmon}

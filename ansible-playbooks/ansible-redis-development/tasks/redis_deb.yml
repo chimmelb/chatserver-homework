@@ -2,7 +2,7 @@
 # Install Redis server
 - name: "Install Redis server"
   sudo: yes
-  action: ${ansible_pkg_mgr} pkg={{ redis.deb.package }} state=latest update-cache=yes
+  action: "{{ ansible_pkg_mgr }} pkg={{ redis.deb.package }} state=latest update-cache=yes"
 
 # Bind Redis server to all interfaces
 - name: "Bind Redis server to all interfaces"
