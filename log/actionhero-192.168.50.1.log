@@ -1,0 +1,50 @@
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2014-11-22T03:41:29.393Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2014-11-22T03:41:29.413Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has joined the cluster","timestamp":"2014-11-22T03:41:29.891Z"}
+{"level":"notice","message":"server ID: 192.168.50.1","timestamp":"2014-11-22T03:41:29.891Z"}
+{"level":"notice","message":"*** Server Started @ 2014-11-21 22:41:29 ***","timestamp":"2014-11-22T03:41:29.891Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2014-11-22T03:41:33.636Z"}
+{"level":"notice","message":"stopping server: web","timestamp":"2014-11-22T03:41:33.638Z"}
+{"level":"notice","message":"stopping server: websocket","timestamp":"2014-11-22T03:41:33.639Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has left the cluster","timestamp":"2014-11-22T03:41:33.641Z"}
+{"level":"alert","message":"The actionhero has been stopped","timestamp":"2014-11-22T03:41:34.143Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2014-11-22T03:41:37.633Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2014-11-22T03:41:37.648Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has joined the cluster","timestamp":"2014-11-22T03:41:38.110Z"}
+{"level":"notice","message":"server ID: 192.168.50.1","timestamp":"2014-11-22T03:41:38.110Z"}
+{"level":"notice","message":"*** Server Started @ 2014-11-21 22:41:37 ***","timestamp":"2014-11-22T03:41:38.111Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2014-11-22T03:41:40.139Z"}
+{"level":"notice","message":"stopping server: web","timestamp":"2014-11-22T03:41:40.141Z"}
+{"level":"notice","message":"stopping server: websocket","timestamp":"2014-11-22T03:41:40.141Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has left the cluster","timestamp":"2014-11-22T03:41:40.143Z"}
+{"level":"alert","message":"The actionhero has been stopped","timestamp":"2014-11-22T03:41:40.645Z"}
+{"level":"notice","message":"*** starting actionhero ***","timestamp":"2014-11-22T03:55:48.075Z"}
+{"level":"warning","message":"running with fakeredis","timestamp":"2014-11-22T03:55:48.095Z"}
+{"level":"info","message":"running custom initializer: Promise","timestamp":"2014-11-22T03:55:48.208Z"}
+{"level":"info","message":"running custom initializer: authMiddleware","timestamp":"2014-11-22T03:55:48.248Z"}
+{"level":"info","message":"environment: development","timestamp":"2014-11-22T03:55:48.249Z"}
+{"level":"notice","message":"pid: 51798","timestamp":"2014-11-22T03:55:48.256Z"}
+{"level":"info","message":"ensuring the existence of the chatRoom: defaultRoom","timestamp":"2014-11-22T03:55:48.256Z"}
+{"level":"notice","message":"starting server: web","timestamp":"2014-11-22T03:55:48.258Z"}
+{"level":"notice","message":"starting server: websocket","timestamp":"2014-11-22T03:55:48.259Z"}
+{"level":"notice","message":"webSockets bound to 0.0.0.0:8080","timestamp":"2014-11-22T03:55:48.283Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has joined the cluster","timestamp":"2014-11-22T03:55:48.586Z"}
+{"level":"notice","message":"server ID: 192.168.50.1","timestamp":"2014-11-22T03:55:48.586Z"}
+{"level":"notice","message":"*** Server Started @ 2014-11-21 22:55:48 ***","timestamp":"2014-11-22T03:55:48.586Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.619Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.622Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.623Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.712Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.713Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.713Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.719Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.721Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] new connection","timestamp":"2014-11-22T03:55:48.722Z"}
+{"level":"alert","message":"Shutting down open servers and stopping task processing","timestamp":"2014-11-22T03:55:48.725Z"}
+{"level":"notice","message":"stopping server: web","timestamp":"2014-11-22T03:55:48.726Z"}
+{"level":"notice","message":"stopping server: websocket","timestamp":"2014-11-22T03:55:48.726Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.726Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.726Z"}
+{"to":"127.0.0.1","level":"info","message":"[server: websocket] connection closed","timestamp":"2014-11-22T03:55:48.727Z"}
+{"level":"info","message":"actionhero member 192.168.50.1 has left the cluster","timestamp":"2014-11-22T03:55:48.729Z"}
+{"level":"alert","message":"The actionhero has been stopped","timestamp":"2014-11-22T03:55:49.231Z"}

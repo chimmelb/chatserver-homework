@@ -39,7 +39,7 @@ I'd like to set up two things here:
 4. Stretch step #2 - if that data is useful, it'd be cool to make an angular graph on the log page. Messages per minute or something. Visual stuff is always cooler than server-side . . . it's hard to sell the backend. 
 
 ** Testing **
-Testing will be with [Mocha](http://mochajs.org/). This project didn't have anything about continuous delivery, so test will be run manually (SSH into VM server, `vagrant ssh`, and then run the tests `make test`). Mocha gives a nice little output thought.
+Testing will be with [Mocha](http://mochajs.org/). This project didn't have anything about continuous delivery, so test will be run manually (SSH into VM server, `vagrant ssh`, and then run the tests `npm test`). Mocha gives a nice little output thought.
 
 **Time**
 A lot of key pieces are in place, and certainly possible, already. I'd say it'll take about 5 hours for the chat actions, and another 5 hours for the tests. Client-side work will be about 5 hours (masking the different rooms, buttons). Logging should be another 5, with that front-end taking about 3 (5 with the graph). 20 hours in a week? My wife might kill me . . . this isn't even for work! Let's see how far I get...
@@ -84,5 +84,5 @@ That will process for a while. Now access the client chat application at [http:/
 This will likely be the end of my work on this project, but things that would be improved:
 
 * Better front-end. For design, I'd probably install Bower and Bootstrap, as that would give some flexibility on design changes and multi-modal layout. A lot of time could be lost here as well, so the app is simple. 
-* Sign on. Authenication is pretty straight forward for ActionHero, and a bearer token might be nice for the WebSocket connection point. Two sections, sign up and sign on, would make the client feel more legit. My first step would be to have an authenticated user hide the chat <div>s, but AngularUI Views would be a better long-term choice.
+* Sign on. Authenication is pretty straight forward for ActionHero, and a bearer token might be nice for the WebSocket connection point. Two web page sections, sign up and sign on, would make the client feel more legit. My first step would be to have an authenticated user hide the chat <div>s, but AngularUI Views would be a better long-term choice. Redis session storage could be useful here as well. 
 * There would be security precautions to take with the existing framework, to make sure those familiar could not easily access the API. For this assignment, many ActionHero gurus could probably put in some messages other ways : )
