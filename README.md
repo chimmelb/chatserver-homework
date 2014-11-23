@@ -16,14 +16,13 @@ A simple web page will act as our chat client. Basically any browser as well (th
 AngularJS is a popular web dev framework, and will be very nice for this project for its two-way data binding. Message comes into data model, page is updated. Simple. Angular could do a lot more as well, but it's power shouldn't be required here.
 
 **Chat Actions**
-ActionHero has some basic chat examples and "verbs" built in, but lets not use their work here. I'll define some actions in ActionHero to handle the chat messages, and write tests around them. Rooms at start will be defaultRoom and secureRoom
+ActionHero has some basic chat examples and "verbs" built in, but we will define our own actions. Custom actions will be easier to write tests against for our business logic, and easy to hook into for custom log messages. There will be just one `defaultRoom` to start.
 
 * LogOn - simple action to store a username in the connection. Param: username. Sets: auth
 * chatPublic - single message on single channel. Param: message. Broadcasts to 'defaultRoom' the given message, an username of person who sent it.
-* joinSecure - join the chat window to the secure chat room. Only those who have joined the secure will receive these messages (in the same window). Broadcast of message that this user joined secure.
-* leaveSecure - removes user from secure chat. Broadcast of message that this player left secure (on secure)
-* chatSecure - messages only intended for those that are secure. 
 * LogOut - no more messages. Broadcast of message that playa left the defaultRoom.
+* joinRoom - Server Push Event. Fired when user logsOn (to other users that are logged on)
+* leftRoom - Server Push Event. First when user logsOut (to other users still in room)
 
 **Log Actions**
 ActionHero uses [Winston](https://github.com/flatiron/winston) as its logging framework. There are logging levels, I'll have to see how to change that dynamically.
@@ -42,7 +41,7 @@ I'd like to set up two things here:
 Testing will be with [Mocha](http://mochajs.org/). This project didn't have anything about continuous delivery, so test will be run manually (SSH into VM server, `vagrant ssh`, and then run the tests `npm test`). Mocha gives a nice little output thought.
 
 **Time**
-A lot of key pieces are in place, and certainly possible, already. I'd say it'll take about 5 hours for the chat actions, and another 5 hours for the tests. Client-side work will be about 5 hours (masking the different rooms, buttons). Logging should be another 5, with that front-end taking about 3 (5 with the graph). 20 hours in a week? My wife might kill me . . . this isn't even for work! Let's see how far I get...
+A lot of key pieces are in place, and certainly possible, already. I'd say it'll take about 5 hours for the chat actions, and another 5 hours for the tests. Client-side work will be about 5 hours (masking the different rooms, buttons). Logging should be another 5, with that front-end taking about 3 (5 with the graph). 25 hours in a week? My wife might kill me . . . this isn't even for work! Let's see how far I get...
 
 ****
 #Requirements
@@ -85,4 +84,3 @@ This will likely be the end of my work on this project, but things that would be
 
 * Better front-end. For design, I'd probably install Bower and Bootstrap, as that would give some flexibility on design changes and multi-modal layout. A lot of time could be lost here as well, so the app is simple. 
 * Sign on. Authenication is pretty straight forward for ActionHero, and a bearer token might be nice for the WebSocket connection point. Two web page sections, sign up and sign on, would make the client feel more legit. My first step would be to have an authenticated user hide the chat <div>s, but AngularUI Views would be a better long-term choice. Redis session storage could be useful here as well. 
-* There would be security precautions to take with the existing framework, to make sure those familiar could not easily access the API. For this assignment, many ActionHero gurus could probably put in some messages other ways : )

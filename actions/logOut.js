@@ -14,10 +14,11 @@ exports.action = {
   },
 
   run: function( api, connection, next ) {
-    delete connection._originalConnection.username;
+
     api.chatRoom.removeMember( connection.id, 'defaultRoom', function( err, isRemoved ) {
       connection.response.success = isRemoved;
       connection.error = err;
+      delete connection._originalConnection.username;
       next( connection, true );
     } )
 
