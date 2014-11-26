@@ -1,93 +1,49 @@
 <html>
 
 <head>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular.min.js"></script>
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="lib/bootstrap/dist/css/bootstrap-theme.css">
+    <script type="text/javascript" src="lib/angular/angular.js"></script>
     <script type="text/javascript" src="/public/javascript/actionheroClient.js"></script>
-    <script type="text/javascript">
-    var app = angular.module('actionheroChat', []);
-    var rooms = ['defaultRoom']
-
-    app.controller('chatController', function($scope, ChatClient) {
-        $scope.chatClient = new ChatClient(function() {
-            $scope.$apply();
-        });
-        $scope.chatClient.connect();
-
-        $scope.inputMessage = {
-            message: 'hi'
-        };
-
-        $scope.say = function() {
-            $scope.chatClient.say($scope.inputMessage.message)
-            $scope.inputMessage.message = '';
-        }
-    });
-
-    app.factory('ChatClient', function() {
-        var ChatClient = function(callback) {
-            var self = this;
-
-            self.client = new ActionheroClient();
-            self.messages = [];
-            self.error = null;
-            self.rooms = rooms;
-            self.connected = false;
-            self.callback = callback;
-
-            self.client.on('connected', function() {
-                self.connected = true;
-                self.callback();
-            })
-            self.client.on('disconnected', function() {
-                    self.connected = false;
-                    self.callback();
-                })
-                // self.client.on('message',      function(message){ console.log(message) })
-            self.client.on('alert', function(message) {
-                window.alert(JSON.stringify(message))
-            })
-            self.client.on('api', function(message) {
-                window.alert(JSON.stringify(message))
-            })
-            self.client.on('say', function(message) {
-                self.messages.push(message);
-                self.callback();
-            })
-        };
-
-        ChatClient.prototype.connect = function() {
-            var self = this;
-
-            self.client.connect(function(error, details) {
-                if (error) {
-                    self.error = error;
-                } else {
-                    self.details = details;
-                    self.rooms.forEach(function(room) {
-                        self.client.roomAdd(room);
-                    });
-                }
-            });
-        }
-
-        ChatClient.prototype.say = function(message) {
-            var self = this;
-            self.client.say(self.client.rooms[0], message);
-            self.messages.push({
-                sentAt: new Date().getTime(),
-                message: message,
-                from: '*me*',
-            });
-        }
-
-        return ChatClient;
-    });
-    </script>
+    <script type="text/javascript" src="public/javascript/chatserver.js"></script>
 </head>
+
+
 
 <body ng-app="actionheroChat">
     <div ng-controller="chatController">
-        <div>connected:</div>
+        <nav class="navbar navbar-default" role="navigation">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">chatserver-homework</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+                    <form class="navbar-form navbar-right" ng-show="chatClient.username">
+                        <p class="navbar-text">Signed in as <span ng-bind="chatClient.username" />
+                        </p>
+                        <button ng-click="chatClient.logOut()" class="btn btn-default">Log Out</button>
+                    </form>
+                    <form class="navbar-form navbar-right" ng-hide="chatClient.username">
+                        <div class="form-group">
+                            <input type="text" class="form-control" placeholder="username" ng-model="inputUsername">
+                        </div>
+                        <button ng-click="logOn()" class="btn btn-default">Log On</button>
+                    </form>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
         <div>
             <form name="myForm">
                 say:
@@ -95,7 +51,7 @@
                 <button ng-click="say()">say</button>
             </form>
         </div>
-        <table border="1">
+        <table class='table'>
             <thead>
                 <tr>
                     <th colspan="6">Chat</th>
@@ -104,9 +60,9 @@
                     <td>
                         <strong>Who</strong>
                     </td>
-                    <td>
+                    <!-- <td>
                         <strong>When</strong>
-                    </td>
+                    </td> -->
                     <td>
                         <strong>Message</strong>
                     </td>
@@ -114,9 +70,9 @@
             </thead>
             <tbody>
                 <tr ng-repeat="message in chatClient.messages">
-                    <td></td>
-                    <td></td>
-                    <td></td>
+                    <td ng-bind="message.from"></td>
+                    <!-- <td ng-bind="message.sentAt"></td> -->
+                    <td ng-bind="message.text"></td>
                 </tr>
             </tbody>
         </table>
