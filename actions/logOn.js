@@ -16,11 +16,8 @@ exports.action = {
     connection._originalConnection.username = connection.params.username;
 
     api.chatRoom.addMember( connection.id, 'defaultRoom', function( err, connected ) {
-      if ( err ) {
-        connection.response.error = err;
-      } else {
-        connection.response.success = connected;
-      }
+      connection.response.error = err;
+      connection.response.success = connected;
       next( connection, true );
     } );
   }

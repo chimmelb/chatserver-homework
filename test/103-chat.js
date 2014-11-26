@@ -61,7 +61,7 @@ describe( 'Chat', function() {
       clientA.action( 'logOn', {
         username: 'clientA'
       }, function( response ) {
-        ( response.error === undefined ).should.eql( true, 'clientA logOn response: ' + JSON.stringify( response ) );
+        should( response.error ).not.be.ok;
         response.success.should.be.true;
         done();
       } );
@@ -99,7 +99,7 @@ describe( 'Chat', function() {
     clientB.action( 'logOn', {
       username: 'clientB'
     }, function( response ) {
-      ( response.error === undefined ).should.eql( true, 'clientB logOn response: ' + JSON.stringify( response ) );
+      should( response.error ).not.be.ok;
       response.success.should.be.true;
     } );
 

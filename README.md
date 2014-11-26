@@ -1,6 +1,10 @@
 chatserver-homework
 ===================
-# Approach
+# Assignment
+* Develop a chat server that supports multiple clients where you can send a message from a client to another client (feel free to apply any encryption or security aspect if you like). 
+* Develop unit test code where you can run a unit test and see the coverage of all of your functions. 
+* Once it's done, develop a script to deploy both client and server in automated way (you can use any scripts or chef/puppet, etc). Please be sure you have enough logs and appropriate log level so that you can trace and debug by setting different log level dynamically. In your deliverable, provide documentation on how we can take the source code to build, deploy and test the features/functions of your chat server. Your package should be self-describing and should not require any other inputs from you.
+
 The goal of this assignment is to create a chat server and client, with dynamic logging, and with testing, that can be auto deployed. Here is my approach, let's see if I can spend the time to finish.
 
 Chat needs to be real-time, so we'll need some sort of socket, and WebSockets is a nice protocol these days. Client might as well be a web page - HTML5 is very capable and portable. 

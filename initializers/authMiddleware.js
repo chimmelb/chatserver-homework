@@ -9,7 +9,7 @@ exports.authMiddleware = function( api, next ) {
     if ( !!actionTemplate.needsAuthenticated ) {
       //api.log( '... needs authenticated' );
 
-      //One last check, since we use this everywhere in the system
+      //A simple check for authentication. Redis session storage might be more appropiate in some circumstances
       if ( !connection.username ) {
         connection.error = 'Unauthorized. This action requires authentication.';
       }

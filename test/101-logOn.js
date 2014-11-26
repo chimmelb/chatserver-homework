@@ -91,7 +91,8 @@ describe( 'User LogOn', function() {
     clientA.action( 'logOn', {
       username: 'user'
     }, function( response ) {
-      ( response.error === undefined ).should.eql( true, 'clientA logOn response: ' + JSON.stringify( response ) );
+      should( response.error ).not.be.ok;
+
       response.success.should.be.true;
       done();
     } );
@@ -99,7 +100,7 @@ describe( 'User LogOn', function() {
 
   it( 'should then allow access to a protected action', function( done ) {
     clientA.action( 'private', function( response ) {
-      ( response.error === undefined ).should.eql( true, 'clientA logOn response: ' + JSON.stringify( response ) );
+      ( response.error === undefined ).should.eql( true, 'clientA private response: ' + JSON.stringify( response ) );
       response.success.should.be.true;
       done();
     } );

@@ -92,7 +92,7 @@ describe( 'User LogOut', function() {
     clientA.action( 'logOn', {
       username: 'user'
     }, function( responseLogOn ) {
-      ( responseLogOn.error === undefined ).should.eql( true, 'clientA logOn responseLogOn: ' + JSON.stringify( responseLogOn ) );
+      should( responseLogOn.error ).not.be.ok;
       responseLogOn.success.should.be.true;
       clientA.action( 'logOut', function( responseLogOut ) {
         ( responseLogOut.error === undefined ).should.eql( true, 'clientA logOut responseLogOut: ' + JSON.stringify( responseLogOut ) );
@@ -115,7 +115,7 @@ describe( 'User LogOut', function() {
     clientB.action( 'logOn', {
       username: 'user'
     }, function( responseLogOn ) {
-      ( responseLogOn.error === undefined ).should.eql( true, 'clientB logOn responseLogOn: ' + JSON.stringify( responseLogOn ) );
+      should( responseLogOn.error ).not.be.ok;
       responseLogOn.success.should.be.true;
       clientB.action( 'private', function( response ) {
         ( response.error === undefined ).should.eql( true, 'clientB private response: ' + JSON.stringify( response ) );
@@ -136,7 +136,7 @@ describe( 'User LogOut', function() {
     clientC.action( 'logOn', {
       username: 'user'
     }, function( response ) {
-      ( response.error === undefined ).should.eql( true, 'clientC logOn response: ' + JSON.stringify( response ) );
+      should( response.error ).not.be.ok;
       response.success.should.be.true;
       api.chatRoom.roomStatus( 'defaultRoom', function( err, response ) {
         //console.log( 'defaultRoom status: ' + JSON.stringify( response ) );
