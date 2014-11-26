@@ -13,7 +13,10 @@ exports.action = {
   },
 
   run: function( api, connection, next ) {
+    //Put it on the originalConnection so later actions can use it
     connection._originalConnection.username = connection.params.username;
+    //put it on this connection object (temp) for further use in this processing chain
+    connection.username = connection.params.username;
 
     api.chatRoom.addMember( connection.id, 'defaultRoom', function( err, connected ) {
       connection.response.error = err;

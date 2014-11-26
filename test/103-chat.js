@@ -57,7 +57,7 @@ describe( 'Chat', function() {
     clientA.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientA.welcomeMessage.should.equal( 'Connection established.' );
       clientA.action( 'logOn', {
         username: 'clientA'
       }, function( response ) {
@@ -72,7 +72,7 @@ describe( 'Chat', function() {
     clientB.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientB.welcomeMessage.should.equal( 'Connection established.' );
       done();
     } );
   } );
@@ -81,7 +81,7 @@ describe( 'Chat', function() {
   //   clientC.connect( function( err, data ) {
   //     data.context.should.equal( 'response' );
   //     data.data.totalActions.should.equal( 0 );
-  //     clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+  //     clientC.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
   //     done();
   //   } );
   // } );

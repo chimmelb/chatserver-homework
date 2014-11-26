@@ -1,6 +1,6 @@
 require( 'blanket' )( {
   pattern: function( filename ) {
-    return !/node_modules|config/.test( filename );
+    return !/node_modules|config|test/.test( filename );
   }
 } );
 
@@ -35,7 +35,7 @@ var connectClients = function( callback ) {
 }
 
 
-describe( 'User LogOn', function() {
+describe( 'Global Setup, Stock Actions', function() {
 
   before( function( done ) {
     actionhero.start( function( err, a ) {
@@ -59,7 +59,7 @@ describe( 'User LogOn', function() {
     clientA.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientA.welcomeMessage.should.equal( 'Connection established.' );
       done();
     } );
   } );

@@ -57,7 +57,7 @@ describe( 'User LogOut', function() {
     clientA.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientA.welcomeMessage.should.equal( 'Connection established.' );
       done();
     } );
   } );
@@ -66,7 +66,7 @@ describe( 'User LogOut', function() {
     clientB.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientB.welcomeMessage.should.equal( 'Connection established.' );
       done();
     } );
   } );
@@ -75,7 +75,7 @@ describe( 'User LogOut', function() {
     clientC.connect( function( err, data ) {
       data.context.should.equal( 'response' );
       data.data.totalActions.should.equal( 0 );
-      clientA.welcomeMessage.should.equal( 'Hello! Welcome to the actionhero api' );
+      clientC.welcomeMessage.should.equal( 'Connection established.' );
       done();
     } );
   } );
