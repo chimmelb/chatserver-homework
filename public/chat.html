@@ -31,7 +31,7 @@
                     <form class="navbar-form navbar-right" ng-show="chatClient.username">
                         <p class="navbar-text">Signed in as <span ng-bind="chatClient.username" />
                         </p>
-                        <button ng-click="chatClient.logOut()" class="btn btn-default">Log Out</button>
+                        <button ng-click="logOut()" class="btn btn-default">Log Out</button>
                     </form>
                     <form class="navbar-form navbar-right" ng-hide="chatClient.username">
                         <div class="form-group">
@@ -44,38 +44,49 @@
             </div>
             <!-- /.container-fluid -->
         </nav>
-        <div>
-            <form name="myForm">
-                say:
-                <input type="text" name="inputMessage" ng-model="inputMessage.message" ng-minlength="1" ng-maxlength="20">
-                <button ng-click="say()">say</button>
-            </form>
-        </div>
-        <table class='table'>
-            <thead>
-                <tr>
-                    <th colspan="6">Chat</th>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Who</strong>
-                    </td>
-                    <!-- <td>
+        <div class="col-md-4 well" ng-show="chatClient.username">
+            <h1>Chat</h1>
+            <div>
+                <form name="myForm">
+                    say:
+                    <input type="text" name="inputMessage" ng-model="inputMessage.message" ng-minlength="1" ng-maxlength="20">
+                    <button ng-click="say()">say</button>
+                </form>
+            </div>
+            <table class='table'>
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>Who</strong>
+                        </td>
+                        <!-- <td>
                         <strong>When</strong>
                     </td> -->
-                    <td>
-                        <strong>Message</strong>
-                    </td>
-                </tr>
-            </thead>
-            <tbody>
-                <tr ng-repeat="message in chatClient.messages">
-                    <td ng-bind="message.from"></td>
-                    <!-- <td ng-bind="message.sentAt"></td> -->
-                    <td ng-bind="message.text"></td>
-                </tr>
-            </tbody>
-        </table>
+                        <td>
+                            <strong>Message</strong>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="message in chatClient.messages">
+                        <td ng-bind="message.from"></td>
+                        <!-- <td ng-bind="message.sentAt"></td> -->
+                        <td ng-bind="message.text"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-8 well" ng-show="chatClient.username">
+            <h1>Log</h1>
+            <table class='table'>
+                <tbody>
+                    <tr ng-repeat="data in logClient.messages">
+                        <td class="small" ng-bind="data | json"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </body>
 
 </html>

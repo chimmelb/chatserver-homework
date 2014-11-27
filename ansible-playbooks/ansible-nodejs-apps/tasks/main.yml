@@ -18,6 +18,10 @@
   npm: path=/vagrant
   when: vagpack.stat.exists
 
+- name: install bower as well
+  command: bower --allow-root install /vagrant/
+  when: vagpack.stat.exists
+
 - name: Start app in /vagrant/ folder
   command: forever start -c "npm start" /vagrant/
   when: "forever_list.stdout.find('/vagrant/') == -1"

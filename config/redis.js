@@ -3,22 +3,23 @@
 // fake redis | https://github.com/hdachev/fakeredis
 // sentinel redis | https://github.com/ortoo/node-redis-sentinel
 
-exports.default = { 
-  redis: function(api){
+exports.default = {
+  redis: function( api ) {
     return {
       // Which channel to use on redis pub/sub for RPC communication
       channel: 'actionhero',
       // How long to wait for an RPC call before considering it a failure 
-      rpcTimeout: 5000, 
+      rpcTimeout: 5000,
 
-      package: 'fakeredis',
+      //package: 'fakeredis',
 
-      // package: 'redis',
-      // host: '127.0.0.1',
-      // port: 6379,
-      // password: null,
-      // options: null,
-      // database: 0
+      package: 'redis',
+      host: '127.0.0.1',
+      port: 6379,
+      password: null,
+      options: null,
+      database: 0
+
 
       // package: 'redis-sentinel-client',
       // port: 26379,
@@ -32,10 +33,10 @@ exports.default = {
   }
 }
 
-exports.test = { 
-  redis: function(api){
+exports.test = {
+  redis: function( api ) {
     var package = 'fakeredis';
-    if(process.env.FAKEREDIS === 'false'){
+    if ( process.env.FAKEREDIS === 'false' ) {
       package = 'redis';
     }
 

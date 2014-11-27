@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "blanket": "^1.1.6",
-    "istanbul": "^0.3.2",
     "mocha": "latest",
     "request": "^2.48.0",
     "should": "latest"
@@ -24,7 +23,7 @@
     "start": "npm run coverage;actionhero start",
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
-    "test": "mocha",
-    "coverage": "mocha -R html-cov > public/coverage.html"
+    "test": "mocha -t 5000",
+    "coverage": "mocha -t 5000 -R html-cov > public/coverage.html"
   }
 }
