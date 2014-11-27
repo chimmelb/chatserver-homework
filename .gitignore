@@ -4,6 +4,8 @@
 # npm files
 npm-debug.log
 node_modules
+log
+pids
 
 #bower installs
 public/lib
