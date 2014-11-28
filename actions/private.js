@@ -1,6 +1,6 @@
 exports.action = {
   name: 'private',
-  description: 'private',
+  description: 'a simple private action that always return true (if authenticated)',
   blockedConnectionTypes: [],
   outputExample: {},
   matchExtensionMimeType: false,

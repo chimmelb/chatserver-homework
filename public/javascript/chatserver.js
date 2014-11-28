@@ -49,6 +49,7 @@ app.factory( 'ChatClient', function() {
     self.connected = false;
     self.callback = callback;
     self.username = null;
+    self.serverLogging = null;
 
     self.client.on( 'connected', function() {
       self.connected = true;
@@ -161,7 +162,14 @@ app.factory( 'ChatClient', function() {
     self.client.action( 'connectLogger', function( response ) {
       //console.log( 'response from logon: ' + JSON.stringify( response ) );
       if ( !response.error && response.success ) {
-
+        logClient.action( 'serverLogging', {
+          options: {
+            statusOnly: true
+          }
+        }, function( response ) {
+          self.serverLogging = response.enabled;
+          self.callback();
+        } );
       } else {
         console.log( 'error logging in: ' + JSON.stringify( response ) );
       }

@@ -1,19 +1,19 @@
 exports.action = {
-  name:                   'showDocumentation',
-  description:            'return API documentation',
+  name: 'showDocumentation',
+  description: 'return API documentation (used for show docs main page',
   blockedConnectionTypes: [],
-  outputExample:          {},
+  outputExample: {},
   matchExtensionMimeType: false,
-  version:                1.0,
-  toDocument:             true,
+  version: 1.0,
+  toDocument: true,
 
   inputs: {
     required: [],
     optional: [],
   },
 
-  run: function(api, connection, next){    
+  run: function( api, connection, next ) {
     connection.response.documentation = api.documentation.documentation;
-    next(connection, true);
+    next( connection, true );
   }
 };

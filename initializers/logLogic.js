@@ -1,12 +1,30 @@
 exports.logLogic = function( api, next ) {
 
   api.logLogic = {};
+  api.logLogic.loggingKey = 'loggingKey';
 
   api.logLogic.log = function( toLog ) {
     api.chatRoom.broadcast( {}, 'logging', toLog );
   }
 
   api.logLogic._start = function( api, next ) {
+    setInterval( function() {
+      //Every 10 seconds, check the global cache value for logging
+      api.cache.load( api.logLogic.loggingKey, function( err, value ) {
+        //console.log( 'logLogic, loading key, value=' + value );
+        //If it is found, proceed to get the server stats, and broadcast to the logging channel
+        if ( !err && !!value ) {
+          api.stats.getAll( function( err, stats ) {
+            if ( !err && !!stats ) {
+              //Got some stats. Now broadcast
+              stats.action = 'statsLog';
+              api.logLogic.log( stats );
+            }
+          } );
+        }
+
+      } );
+    }, api.config.logger.serverLoggingInterval );
     next();
   };
 
@@ -14,9 +32,12 @@ exports.logLogic = function( api, next ) {
     next();
   };
 
+
+
+
   api.actions.addPreProcessor( function( connection, actionTemplate, next ) {
-    connection.loggingStatsTimeIn = new Date();
     connection.loggingStats = {
+      timeIn: new Date().getTime(),
       serverId: api.id,
       action: actionTemplate.name,
     }
@@ -32,7 +53,7 @@ exports.logLogic = function( api, next ) {
         connection.loggingStats.error = connection.error;
       }
       connection.loggingStats.user = connection.username;
-      connection.loggingStats.latency = new Date() - connection.loggingStatsTimeIn;
+      connection.loggingStats.timeOut = new Date().getTime();
       api.logLogic.log( connection.loggingStats );
     }
     next( connection, toRender );

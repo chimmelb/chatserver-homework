@@ -6,6 +6,7 @@ exports.default = {
     var logger = {
       transports: []
     };
+    logger.serverLoggingInterval = 10000;
 
     // console logger
     if ( cluster.isMaster ) {
@@ -45,6 +46,7 @@ exports.test = {
     var logger = {
       transports: []
     };
+    logger.serverLoggingInterval = 1000;
 
     logger.transports.push( function( api, winston ) {
       return new( winston.transports.Console )( {

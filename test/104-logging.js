@@ -112,7 +112,8 @@ describe( 'Logging', function() {
       response.message.user.should.eql( 'clientA', 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.serverId.should.eql( api.id, 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.action.should.eql( 'chatPublic', 'logClient listen error: ' + JSON.stringify( response ) );
-      response.message.latency.should.be.Number;
+      response.message.timeIn.should.be.Number;
+      response.message.timeOut.should.be.Number;
       done();
     };
 
@@ -132,7 +133,8 @@ describe( 'Logging', function() {
       response.message.user.should.eql( 'clientA', 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.serverId.should.eql( api.id, 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.action.should.eql( 'chatPublic', 'logClient listen error: ' + JSON.stringify( response ) );
-      response.message.latency.should.be.Number;
+      response.message.timeIn.should.be.Number;
+      response.message.timeOut.should.be.Number;
       response.message.error.should.be.String;
       done();
     };
@@ -153,11 +155,13 @@ describe( 'Logging', function() {
     var msg = 'hello from clientA';
 
     function listener( response ) {
+      //console.log( 'logger message: ' + JSON.stringify( response ) );
       logClient.removeListener( 'say', listener );
       response.message.user.should.eql( 'clientA', 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.serverId.should.eql( api.id, 'logClient listen error: ' + JSON.stringify( response ) );
       response.message.action.should.eql( 'logOut', 'logClient listen error: ' + JSON.stringify( response ) );
-      response.message.latency.should.be.Number;
+      response.message.timeIn.should.be.Number;
+      response.message.timeOut.should.be.Number;
       done();
     };
 

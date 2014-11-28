@@ -1,7 +1,7 @@
 {
-  "author": "YOU <YOU@example.com>",
-  "name": "my_actionhero_project",
-  "description": "my actionhero project",
+  "author": "chimmelb <clay.himmelberger@gmail.com>",
+  "name": "chatserver-homework",
+  "description": "a 'homework' assignment to see if I could make a chat server",
   "version": "0.0.1",
   "engines": {
     "node": ">=0.10.0"
