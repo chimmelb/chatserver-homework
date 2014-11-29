@@ -4,6 +4,7 @@ exports.logLogic = function( api, next ) {
   api.logLogic.loggingKey = 'loggingKey';
 
   api.logLogic.log = function( toLog ) {
+    //console.log( 'logging: ' + JSON.stringify( toLog ) );
     api.chatRoom.broadcast( {}, 'logging', toLog );
   }
 
@@ -48,7 +49,7 @@ exports.logLogic = function( api, next ) {
 
   api.actions.addPostProcessor( function( connection, actionTemplate, toRender, next ) {
 
-    if ( connection.username ) {
+    if ( actionTemplate.shouldLog ) {
       if ( connection.error ) {
         connection.loggingStats.error = connection.error;
       }

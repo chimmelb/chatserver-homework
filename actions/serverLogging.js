@@ -43,6 +43,10 @@ exports.action = {
             connection.error = err;
             connection.response.enabled = true;
             next( connection, true );
+            api.logLogic.log( {
+              action: 'serverLogging',
+              enabled: true
+            } );
           } );
         }
         //value is on, and user wants to turn it on
@@ -64,6 +68,10 @@ exports.action = {
             connection.error = err;
             connection.response.enabled = false;
             next( connection, true );
+            api.logLogic.log( {
+              action: 'serverLogging',
+              enabled: false
+            } );
           } );
         }
       } );

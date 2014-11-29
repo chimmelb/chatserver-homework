@@ -7,6 +7,7 @@ exports.action = {
   version: 1.0,
   toDocument: true,
   needsAuthenticated: true,
+  shouldLog: true,
 
   inputs: {
     required: [],

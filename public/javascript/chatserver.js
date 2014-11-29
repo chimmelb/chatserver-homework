@@ -1,4 +1,4 @@
-var app = angular.module( 'actionheroChat', [] );
+var app = angular.module( 'actionheroChat', [ 'ui.bootstrap' ] );
 var rooms = [ 'defaultRoom' ]
 
 app.controller( 'chatController', function( $scope, ChatClient ) {
@@ -31,6 +31,10 @@ app.controller( 'chatController', function( $scope, ChatClient ) {
     $scope.inputUsername = '';
   }
 
+  $scope.enableServerLogging = function( enable ) {
+    $scope.logClient.setServerLogging( enable );
+  }
+
   $scope.logOut = function() {
     $scope.chatClient.logOut( $scope.inputUsername, function() {
       $scope.logClient.disconnect();
@@ -56,13 +60,14 @@ app.factory( 'ChatClient', function() {
       self.callback();
     } )
     self.client.on( 'disconnected', function() {
-      self.connected = false;
-      self.callback();
-    } )
-    self.client.on( 'message', function( message ) {
+        self.connected = false;
+        self.callback();
+      } )
+      // self.client.on( 'message', function( message ) {
 
-      console.log( 'message event: ' + JSON.stringify( message ) );
-    } )
+    //   console.log( 'message event: ' + JSON.stringify( message ) );
+    // } )
+
     self.client.on( 'alert', function( message ) {
       window.alert( JSON.stringify( message ) )
     } )
@@ -70,6 +75,111 @@ app.factory( 'ChatClient', function() {
       window.alert( JSON.stringify( message ) )
     } )
     self.client.on( 'say', function( data ) {
+
+      self.handleMessage( data );
+    } );
+
+    ChatClient.prototype.connect = function() {
+      var self = this;
+
+      self.client.connect( function( error, details ) {
+        if ( error ) {
+          self.error = error;
+        } else {
+          self.details = details;
+        }
+      } );
+    }
+
+    ChatClient.prototype.disconnect = function() {
+      var self = this;
+
+      self.client.disconnect( function( error, details ) {
+        if ( error ) {
+          self.error = error;
+        } else {
+          self.details = details;
+        }
+      } );
+    }
+
+    ChatClient.prototype.chatPublic = function( message ) {
+      var self = this;
+      self.client.action( 'chatPublic', {
+        message: message
+      } );
+      self.messages.push( {
+        from: self.username,
+        text: message
+      } );
+    }
+
+    ChatClient.prototype.logOn = function( username, callback ) {
+      var self = this;
+      //console.log( 'trying to log on with username ' + username );
+      self.client.action( 'logOn', {
+        username: username
+      }, function( response ) {
+        //console.log( 'response from logon: ' + JSON.stringify( response ) );
+        if ( !response.error && response.success ) {
+          self.username = username;
+          callback();
+          self.callback();
+        } else {
+          console.log( 'error logging in: ' + JSON.stringify( response ) );
+        }
+      } );
+    }
+
+    ChatClient.prototype.connectLogger = function() {
+      var self = this;
+      //console.log( 'trying to log on with username ' + username );
+      self.client.action( 'connectLogger', function( response ) {
+        //console.log( 'response from logon: ' + JSON.stringify( response ) );
+        if ( !response.error && response.success ) {
+          self.client.action( 'serverLogging', {
+            options: {
+              statusOnly: true
+            }
+          }, function( response ) {
+            console.log( 'serverLogging status = ' + JSON.stringify( response ) );
+            self.serverLogging = response.enabled;
+            self.callback();
+          } );
+        } else {
+          console.log( 'error logging in: ' + JSON.stringify( response ) );
+        }
+      } );
+    }
+
+    ChatClient.prototype.setServerLogging = function( enable ) {
+      var self = this;
+      self.client.action( 'serverLogging', {
+        options: {
+          enable: enable
+        }
+      }, function( response ) {
+        console.log( 'serverLogging status = ' + JSON.stringify( response ) );
+        self.serverLogging = response.enabled;
+        self.callback();
+      } );
+    }
+
+    ChatClient.prototype.logOut = function( message, callback ) {
+      var self = this;
+      self.client.action( 'logOut', function( response ) {
+        if ( !response.error && response.success ) {
+          self.username = null;
+          callback();
+        } else {
+          console.log( 'error logging out: ' + JSON.stringify( response ) );
+        }
+        self.callback();
+      } );
+    }
+
+    ChatClient.prototype.handleMessage = function( data ) {
+      var self = this;
       console.log( 'say event: ' + JSON.stringify( data ) );
       if ( data.room === 'defaultRoom' ) {
         switch ( data.message.action ) {
@@ -98,96 +208,32 @@ app.factory( 'ChatClient', function() {
             console.log( 'no matching case for ' + data.message.action );
         }
       } else if ( data.room === 'logging' ) {
-        self.messages.push( data.message );
+        switch ( data.message.action ) {
+          case 'joinedRoom':
+          case 'leftRoom':
+            //do nothing, do not log loggers joining the room
+            //console.log( 'doing nothing' );
+            break;
+          case 'serverLogging':
+            self.serverLogging = data.message.enabled;
+            self.callback();
+            break;
+          case 'statsLog':
+            var statsToLog = {
+              currentChatters: data.message[ "actionhero:stats" ][ "chatRoom:roomMembers:defaultRoom" ],
+              messageCount: data.message[ "actionhero:stats" ][ "chatRoom:messagesSent:defaultRoom" ],
+              totalActions: data.message[ "actionhero:stats" ][ "actions:totalProcessedActions" ]
+            }
+            self.messages.push( statsToLog );
+            self.callback();
+            break;
+          default:
+            self.messages.push( data.message );
+            self.callback();
+            break;
+        }
       }
-      self.callback();
-    } )
-  };
-
-  ChatClient.prototype.connect = function() {
-    var self = this;
-
-    self.client.connect( function( error, details ) {
-      if ( error ) {
-        self.error = error;
-      } else {
-        self.details = details;
-      }
-    } );
+    }
   }
-
-  ChatClient.prototype.disconnect = function() {
-    var self = this;
-
-    self.client.disconnect( function( error, details ) {
-      if ( error ) {
-        self.error = error;
-      } else {
-        self.details = details;
-      }
-    } );
-  }
-
-  ChatClient.prototype.chatPublic = function( message ) {
-    var self = this;
-    self.client.action( 'chatPublic', {
-      message: message
-    } );
-    self.messages.push( {
-      from: self.username,
-      text: message
-    } );
-  }
-
-  ChatClient.prototype.logOn = function( username, callback ) {
-    var self = this;
-    //console.log( 'trying to log on with username ' + username );
-    self.client.action( 'logOn', {
-      username: username
-    }, function( response ) {
-      //console.log( 'response from logon: ' + JSON.stringify( response ) );
-      if ( !response.error && response.success ) {
-        self.username = username;
-        callback();
-        self.callback();
-      } else {
-        console.log( 'error logging in: ' + JSON.stringify( response ) );
-      }
-    } );
-  }
-
-  ChatClient.prototype.connectLogger = function() {
-    var self = this;
-    //console.log( 'trying to log on with username ' + username );
-    self.client.action( 'connectLogger', function( response ) {
-      //console.log( 'response from logon: ' + JSON.stringify( response ) );
-      if ( !response.error && response.success ) {
-        logClient.action( 'serverLogging', {
-          options: {
-            statusOnly: true
-          }
-        }, function( response ) {
-          self.serverLogging = response.enabled;
-          self.callback();
-        } );
-      } else {
-        console.log( 'error logging in: ' + JSON.stringify( response ) );
-      }
-    } );
-  }
-
-  ChatClient.prototype.logOut = function( message, callback ) {
-    var self = this;
-    self.client.action( 'logOut', function( response ) {
-      if ( !response.error && response.success ) {
-        self.username = null;
-        callback();
-      } else {
-        console.log( 'error logging out: ' + JSON.stringify( response ) );
-      }
-      self.callback();
-    } );
-  }
-
   return ChatClient;
 } );

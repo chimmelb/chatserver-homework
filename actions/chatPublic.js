@@ -7,7 +7,8 @@ exports.action = {
   matchExtensionMimeType: false,
   version: 1.0,
   toDocument: true,
-  needsAuthenticated: true,
+  needsAuthenticated: true,shouldLog: true,
+
 
   inputs: {
     required: [ 'message' ],
