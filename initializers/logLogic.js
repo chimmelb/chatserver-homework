@@ -19,6 +19,7 @@ exports.logLogic = function( api, next ) {
             if ( !err && !!stats ) {
               //Got some stats. Now broadcast
               stats.action = 'statsLog';
+              stats.timeStamp = new Date().getTime();
               api.logLogic.log( stats );
             }
           } );

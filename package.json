@@ -8,9 +8,10 @@
   },
   "dependencies": {
     "actionhero": "9.4.0",
-    "ws": "latest",
+    "bluebird": "^2.x",
     "grunt": "latest",
-    "bluebird": "^2.x"
+    "ws": "latest",
+    "yargs": "^1.3.3"
   },
   "devDependencies": {
     "blanket": "^1.1.6",
@@ -24,6 +25,7 @@
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
     "test": "mocha -t 5000",
-    "coverage": "mocha -t 5000 -R html-cov > public/coverage.html"
+    "coverage": "mocha -t 5000 -R html-cov > public/coverage.html",
+    "monkey": "node chatmonkey 5"
   }
 }

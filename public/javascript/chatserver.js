@@ -185,21 +185,21 @@ app.factory( 'ChatClient', function() {
         switch ( data.message.action ) {
           case 'joinedRoom':
             console.log( 'joined room message' );
-            self.messages.push( {
+            self.messages.unshift( {
               from: data.message.username,
               text: "***joined room***",
             } );
             break;
           case 'leftRoom':
             console.log( 'left room message' );
-            self.messages.push( {
+            self.messages.unshift( {
               from: data.message.username,
               text: "***left room***",
             } );
             break;
           case 'chatPublic':
             console.log( 'chat message' );
-            self.messages.push( {
+            self.messages.unshift( {
               from: data.message.from,
               text: data.message.message,
             } );
@@ -220,15 +220,16 @@ app.factory( 'ChatClient', function() {
             break;
           case 'statsLog':
             var statsToLog = {
+              timeStamp: data.message.timeStamp,
               currentChatters: data.message[ "actionhero:stats" ][ "chatRoom:roomMembers:defaultRoom" ],
-              messageCount: data.message[ "actionhero:stats" ][ "chatRoom:messagesSent:defaultRoom" ],
+              totalChats: data.message[ "actionhero:stats" ][ "chatRoom:messagesSent:defaultRoom" ],
               totalActions: data.message[ "actionhero:stats" ][ "actions:totalProcessedActions" ]
             }
-            self.messages.push( statsToLog );
+            self.messages.unshift( statsToLog );
             self.callback();
             break;
           default:
-            self.messages.push( data.message );
+            self.messages.unshift( data.message );
             self.callback();
             break;
         }
