@@ -212,7 +212,7 @@ describe( 'Server Logging', function() {
       }
     }, function( response ) {
       //console.log( 'logClient serverLogging: ' + JSON.stringify( response ) );
-      ( response.error === undefined ).should.eql( true, 'logClient.serverLogging.enable=true: ' + JSON.stringify( response ) );
+      ( response.error === undefined ).should.eql( true, 'logClient.serverLogging.enable=false: ' + JSON.stringify( response ) );
       response.enabled.should.eql( false );
       //give time for logClient to recieve a message (it should not)
       setTimeout( function() {

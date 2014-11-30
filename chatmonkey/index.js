@@ -3,10 +3,10 @@ var Promise = require( 'bluebird' );
 var tcp = require( './tcp.js' );
 
 var argv = require( 'yargs' )
-  .usage( 'Unleash some chat monkies!.\nUsage: $0 -host [str] -port [num]' )
+  .usage( 'Unleash some chat monkies!\nUsage: $0 -host [str] -port [num]' )
   .demand( 1, 'Please specify the number of chat monkies to create.' )
-  .example( 'node chatmonkey 5 -host localhost -port 5000', 'Start 5 chat monkies on localhost:5000' )
-  .default( 'host', '192.168.50.3' )
+  .example( 'node chatmonkey 5 -host 192.168.50.3 -port 5000', 'Start 5 chat monkies on localhost:5000' )
+  .default( 'host', 'localhost' )
   .default( 'port', 5000 )
   .argv;
 
@@ -86,7 +86,7 @@ function createMessages( client ) {
   var numMessages = rand( 3, 7 );
   console.log( 'monkey[' + client.id + '] going to chat ' + numMessages + ' messages' );
   for ( var idx = numMessages; idx > 0; idx-- ) {
-    messageTime += ( 1000 * rand( 1, 5 ) );
+    messageTime += ( 1000 * rand( 3, 7 ) );
     var prom = Promise.delay( Promise.bind( client ), messageTime )
       .then( function() {
         var msg = getMsg();
@@ -105,7 +105,7 @@ while ( currentMonkeyId < numberOfMonkies ) {
   var currentMonkey = {
     id: currentMonkeyId
   };
-  var logDelay = 1000 * rand( 1, 3 );
+  var logDelay = 1000 * rand( 2, 5 );
   logTime += logDelay;
   console.log( 'Starting monkey ' + currentMonkeyId + ' at time ' + logTime );
   var monkeyProm = Promise.delay( Promise.bind( currentMonkey ), logTime )
