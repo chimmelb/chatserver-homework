@@ -14,5 +14,5 @@
     - role: ansible-nodejs-apps
       apps:
         enabled:
-          - "/srv/chatserver-homework"
+          # - "/srv/chatserver-homework"
           # - "/srv/anotherapp/"
