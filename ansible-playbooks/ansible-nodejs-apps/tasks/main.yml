@@ -37,10 +37,10 @@
   
 - name: install bower components last
   command: chdir=/vagrant bower --allow-root --config.interactive=false --config.analytics=false install
-  when: apps is defined and apps.enabled is defined
+  when: vagpack.stat.exists
   
 - name: run coverage tests
   command: chdir=/vagrant npm run coverage
-  when: npm_installed
+  when: vagpack.stat.exists
   
   
