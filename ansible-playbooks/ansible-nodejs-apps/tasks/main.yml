@@ -18,10 +18,10 @@
   npm: path=/vagrant
   when: vagpack.stat.exists
 
-#- name: Start app in /vagrant/ folder
-#  command: forever start -c "npm start" /vagrant/
-#  when: "forever_list.stdout.find('/vagrant/') == -1"
-#  when: vagpack.stat.exists
+- name: Start app in /vagrant/ folder
+  command: forever start -c "npm start" /vagrant/
+  when: "forever_list.stdout.find('/vagrant/') == -1"
+  when: vagpack.stat.exists
 
 - name: Run npm install in folders listed in apps.enabled
   npm: path={{ item }}
@@ -30,7 +30,7 @@
   when: apps is defined and apps.enabled is defined
 
 - name: Start all enabled applications
-  command: forever start -l /vagrant/log/forever.log -e /vagrant/log/forevererr.log -o /vagrant/log/foreverout.log -c "npm start" {{ item }}
+  command: forever start -c "npm start" {{ item }}
   when: "forever_list.stdout.find('{{ item }}') == -1"
   with_items: apps.enabled
   when: apps is defined and apps.enabled is defined
