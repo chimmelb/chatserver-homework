@@ -21,7 +21,7 @@
   },
   "scripts": {
     "help": "actionhero help",
-    "start": "npm run coverage;actionhero start",
+    "start": "bower --allow-root --config.interactive=false --config.analytics=false install;npm run coverage;actionhero start",
     "actionhero": "actionhero",
     "startCluster": "actionhero startCluster",
     "test": "mocha -t 5000",
