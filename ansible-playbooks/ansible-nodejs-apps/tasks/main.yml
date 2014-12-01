@@ -14,16 +14,9 @@
 - stat: path=/vagrant/package.json
   register: vagpack
 
-- stat: path=/vagrant/bower.json
-  register: vagbower
-
 - name: Run npm install in /vagrant folder
   npm: path=/vagrant
   when: vagpack.stat.exists
-
-- name: install bower as well
-  command: bower --allow-root --config.interactive=false --config.analytics=false install /vagrant
-  when: vagbower.stat.exists
 
 - name: Start app in /vagrant/ folder
   command: forever start -c "npm start" /vagrant/
@@ -39,4 +32,8 @@
   command: forever start -c "npm start" {{ item }}
   when: "forever_list.stdout.find('{{ item }}') == -1"
   with_items: apps.enabled
+  when: apps is defined and apps.enabled is defined
+  
+- name: install bower components last
+  command: chdir=/vagrant bower --allow-root --config.interactive=false --config.analytics=false install
   when: apps is defined and apps.enabled is defined
