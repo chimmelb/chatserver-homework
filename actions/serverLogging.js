@@ -16,15 +16,18 @@ exports.action = {
   run: function( api, connection, next ) {
     api.chatRoom.roomStatus( 'logging', function( statusErr, status ) {
 
+      //A type of authentication. Only access serverLogging if signed into logging room
       if ( !!statusErr || !status.members[ connection.id ] ) {
         connection.error = 'Cannot access serverLogging via this connection';
         return next( connection, true );
       }
+      //Input type checking
       if ( typeof connection.params.options !== 'object' || ( connection.params.options[ 'enable' ] === undefined && connection.params.options[ 'statusOnly' ] === undefined ) ) {
         connection.error = '"options" must be an object, with at least one of "enable" or "statusOnly"';
         return next( connection, true );
       }
       var enable = connection.params.options.enable;
+      //Load the global logging value
       api.cache.load( api.logLogic.loggingKey, function( err, value ) {
         //Treat err or !value as disabled
         var disabled = ( !!err || !value );

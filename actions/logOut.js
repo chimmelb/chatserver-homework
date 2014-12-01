@@ -16,9 +16,11 @@ exports.action = {
 
   run: function( api, connection, next ) {
 
+    //Remove the connection from the room
     api.chatRoom.removeMember( connection.id, 'defaultRoom', function( err, isRemoved ) {
       connection.response.success = isRemoved;
       connection.error = err;
+      //Delete the connection stats so user is no longer logged in
       delete connection._originalConnection.username;
       next( connection, true );
     } )

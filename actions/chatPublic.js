@@ -7,7 +7,8 @@ exports.action = {
   matchExtensionMimeType: false,
   version: 1.0,
   toDocument: true,
-  needsAuthenticated: true,shouldLog: true,
+  needsAuthenticated: true,
+  shouldLog: true,
 
 
   inputs: {
@@ -16,16 +17,19 @@ exports.action = {
   },
 
   run: function( api, connection, next ) {
+    //Make sure the message param is a string
     if ( typeof connection.params.message !== 'string' ) {
       connection.error = 'message must be a string.';
       return next( connection, true );
     }
+    //Create the chat packet
     var push = {
       action: 'chatPublic',
       message: connection.params.message,
       from: connection.username,
       room: 'defaultRoom'
     };
+    //Broadcast to everyone else in the room
     api.chatRoom.broadcast( connection, 'defaultRoom', push, function( err, data ) {
       connection.response.success = true;
       if ( err ) connection.response.error = err;

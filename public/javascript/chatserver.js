@@ -79,6 +79,7 @@ app.factory( 'ChatClient', function() {
       self.handleMessage( data );
     } );
 
+    //Connect this web socket with the server
     ChatClient.prototype.connect = function() {
       var self = this;
 
@@ -91,6 +92,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //Disconnect the web socket from the server
     ChatClient.prototype.disconnect = function() {
       var self = this;
 
@@ -103,6 +105,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //shortcut method to chat public (fills in the action params)
     ChatClient.prototype.chatPublic = function( message ) {
       var self = this;
       self.client.action( 'chatPublic', {
@@ -114,6 +117,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //shortcut method to logOn, fills in action params
     ChatClient.prototype.logOn = function( username, callback ) {
       var self = this;
       //console.log( 'trying to log on with username ' + username );
@@ -122,6 +126,7 @@ app.factory( 'ChatClient', function() {
       }, function( response ) {
         //console.log( 'response from logon: ' + JSON.stringify( response ) );
         if ( !response.error && response.success ) {
+          //If we are successful, set the username
           self.username = username;
           callback();
           self.callback();
@@ -131,6 +136,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //shortcut method to connect to the logging service
     ChatClient.prototype.connectLogger = function() {
       var self = this;
       //console.log( 'trying to log on with username ' + username );
@@ -152,6 +158,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //shortcut method to set the serverLogging value (fills in action params)
     ChatClient.prototype.setServerLogging = function( enable ) {
       var self = this;
       self.client.action( 'serverLogging', {
@@ -165,6 +172,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //shortcut method to log out from the chat system
     ChatClient.prototype.logOut = function( message, callback ) {
       var self = this;
       self.client.action( 'logOut', function( response ) {
@@ -178,6 +186,7 @@ app.factory( 'ChatClient', function() {
       } );
     }
 
+    //Basic controls to handle input messages, either from the chat system or logging service
     ChatClient.prototype.handleMessage = function( data ) {
       var self = this;
       console.log( 'say event: ' + JSON.stringify( data ) );
@@ -219,6 +228,7 @@ app.factory( 'ChatClient', function() {
             self.callback();
             break;
           case 'statsLog':
+            //filter the server stats so we don't log too much
             var statsToLog = {
               timeStamp: data.message.timeStamp,
               currentChatters: data.message[ "actionhero:stats" ][ "chatRoom:roomMembers:defaultRoom" ],

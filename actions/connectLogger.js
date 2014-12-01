@@ -13,6 +13,7 @@ exports.action = {
   },
 
   run: function( api, connection, next ) {
+    //connect this connection to the logging server. This call will basically always pass
     api.chatRoom.addMember( connection.id, 'logging', function( err, connected ) {
       connection.response.error = err;
       connection.response.success = connected;

@@ -19,6 +19,7 @@ exports.action = {
     //put it on this connection object (temp) for further use in this processing chain
     connection.username = connection.params.username;
 
+    //This call should basically always pass
     api.chatRoom.addMember( connection.id, 'defaultRoom', function( err, connected ) {
       connection.response.error = err;
       connection.response.success = connected;
