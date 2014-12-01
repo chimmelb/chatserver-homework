@@ -14,13 +14,16 @@
 - stat: path=/vagrant/package.json
   register: vagpack
 
+- stat: path=/vagrant/bower.json
+  register: vagbower
+
 - name: Run npm install in /vagrant folder
   npm: path=/vagrant
   when: vagpack.stat.exists
 
 - name: install bower as well
-  command: bower --allow-root --config.interactive=false install /vagrant/
-  when: vagpack.stat.exists
+  command: bower --allow-root --config.interactive=false --config.analytics=false install /vagrant/
+  when: vagbower.stat.exists
 
 - name: Start app in /vagrant/ folder
   command: forever start -c "npm start" /vagrant/
