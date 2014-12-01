@@ -19,7 +19,7 @@
   when: vagpack.stat.exists
 
 - name: install bower as well
-  command: bower --allow-root install /vagrant/
+  command: bower --allow-root --config.interactive=false install /vagrant/
   when: vagpack.stat.exists
 
 - name: Start app in /vagrant/ folder
