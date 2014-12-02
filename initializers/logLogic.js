@@ -27,6 +27,7 @@ exports.logLogic = function( api, next ) {
 
       } );
     }, api.config.logger.serverLoggingInterval );
+    api.chatRoom.add( 'logging' );
     next();
   };
 
