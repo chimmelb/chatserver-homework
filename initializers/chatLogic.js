@@ -20,7 +20,9 @@ exports.chatLogic = function( api, next ) {
   } );
 
   api.chatLogic._start = function( api, next ) {
-    api.chatRoom.add( 'defaultRoom' );
+    setTimeout( function() {
+      api.chatRoom.add( 'defaultRoom' );
+    }, 10000 );
 
     next();
   };
