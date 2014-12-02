@@ -26,6 +26,7 @@
 - name: Run npm install in folders listed in apps.enabled
   npm: path={{ item }}
   with_items: apps.enabled
+  register: npm_installed
   when: apps is defined and apps.enabled is defined
 
 - name: Start all enabled applications
@@ -36,4 +37,10 @@
   
 - name: install bower components last
   command: chdir=/vagrant bower --allow-root --config.interactive=false --config.analytics=false install
-  when: apps is defined and apps.enabled is defined
+  when: vagpack.stat.exists
+  
+- name: run coverage tests
+  command: chdir=/vagrant npm run coverage
+  when: vagpack.stat.exists
+  
+  
